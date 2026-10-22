@@ -6,7 +6,7 @@ FastAPI Agent가 스트리밍한 A2UI v0.9 메시지를 처리하고, 선택된 
 
 - `@a2ui/web_core` MessageProcessor 기반 A2UI 메시지 처리
 - `@a2ui/react` 기반 Surface 렌더링
-- Cadenza 제한 Catalog와 A2UI Basic Catalog 전환
+- Custom Catalog와 A2UI Basic Catalog 전환
 - Mock, Gemini API, Local Codex Provider 선택
 - SSE 기반 실시간 UI 생성
 - 버튼 액션의 Agent 재전송과 Data Model 갱신
@@ -78,7 +78,7 @@ npm run dev
 
 | Catalog | 설명 |
 |---|---|
-| Cadenza | Composer에 대응되는 5개 컴포넌트만 허용 |
+| Custom | 표준 18개와 Composer 전용 47개를 합친 65개 A2UI 타입으로 64개 `data-comp` 계약을 렌더링 |
 | Basic | A2UI 공식 Basic Catalog와 기본 React Renderer 사용 |
 
 ## Cadenza 컴포넌트 매핑
@@ -86,12 +86,37 @@ npm run dev
 | A2UI 컴포넌트 | 렌더링 형태 |
 |---|---|
 | `Text` | `basic-title` 또는 `basic-ellipsis-text` |
+| `Image` | `card` 기반 이미지 표면 |
+| `Icon` | `icon` |
+| `Video`, `AudioPlayer` | `card` 기반 미디어 표면 |
+| `Row`, `Column` | `base-flex` |
+| `List` | `basic-info-list` |
 | `Card` | `card` |
+| `Tabs` | `tab-list` |
+| `Modal` | `base-modal-layout` |
+| `Divider` | `divider` |
 | `Button` | `base-button` |
-| `Row` | `base-flex(horizontal)` |
-| `Column` | `base-flex(vertical)` |
+| `TextField` | `input` 또는 `textarea` |
+| `CheckBox` | `checkbox` |
+| `ChoicePicker` | `checkbox`, `radio` 또는 `group-tag` |
+| `Slider` | `slider` |
+| `DateTimeInput` | `date-range-picker` |
 
 클라이언트 Renderer에 등록되지 않은 컴포넌트는 실행 가능한 코드로 변환하지 않습니다.
+
+### Custom A2UI Catalog
+
+Cadenza 프로필은 공식 Basic Catalog를 그대로 포함하고 다음 Composer 전용 타입을 추가합니다.
+
+| 역할 | Custom A2UI 타입 |
+|---|---|
+| 레이아웃 | `Layout`, `Content`, `ControlBar`, `CreateLayout`, `DashboardLayout`, `DetailLayout`, `Filter`, `Form`, `FormItem`, `FormLayout`, `ListLayout`, `Sider` |
+| 오버레이 | `Drawer`, `Tooltip`, `ConfirmModal`, `Dropdown`, `Popover`, `SidePanel` |
+| 데이터·시각화 | `AddTable`, `Table`, `Chart`, `MiniLineChart`, `ChartLegend`, `Tree`, `CodeView` |
+| 입력·탐색 | `Uploader`, `InputNumber`, `ListBox`, `Pagination`, `Segmented`, `Select`, `Switch` |
+| 상태·피드백 | `Accordion`, `Alert`, `CopyButton`, `FilterButton`, `Loader`, `NoData`, `Progress`, `Skeleton`, `Spinner`, `StatusHeader`, `StatusTag`, `Step`, `SideStep`, `StepIndicator`, `Toast` |
+
+`cadenzaCustomCatalog.tsx`의 Catalog 문서는 각 타입의 필수 속성, 선택값, 자식 컴포넌트 참조와 Action을 JSON Schema로 정의합니다. `Catalog.fromJson()`이 이 문서를 런타임 스키마로 변환하고, 등록된 React Renderer만 실제 DOM을 생성합니다.
 
 ## Generation Trace
 
@@ -126,7 +151,8 @@ Response 하단에서 다음 처리 내용을 순서대로 확인할 수 있습�
 src/
 ├── a2ui/
 │   ├── a2uiCache.ts             # 요청 및 HTML 캐시
-│   ├── cadenzaBasicCatalog.tsx  # Cadenza React Catalog
+│   ├── cadenzaBasicCatalog.tsx  # 표준 18개 Cadenza Renderer
+│   ├── cadenzaCustomCatalog.tsx # Custom 47개 JSON Schema와 Renderer
 │   ├── catalogTrace.ts          # Catalog 참조 내역 분석
 │   └── cadenza-basic.css        # Cadenza 스타일
 ├── api/

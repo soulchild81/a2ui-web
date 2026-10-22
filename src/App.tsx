@@ -41,6 +41,10 @@ function formatDuration(milliseconds: number): string {
     : `${milliseconds.toFixed(2)} ms`;
 }
 
+function catalogProfileLabel(profile: CatalogProfile): 'Custom' | 'Basic' {
+  return profile === 'cadenza' ? 'Custom' : 'Basic';
+}
+
 export function App() {
   const [query, setQuery] = useState(INITIAL_QUERY);
   const [mode, setMode] = useState<GenerationMode>('mock');
@@ -126,7 +130,7 @@ export function App() {
     clearCurrentSurface();
     setCatalogProfile(profile);
     setRunState('idle');
-    setStatusMessage(`${profile === 'cadenza' ? 'Cadenza' : 'Basic'} 카탈로그를 선택했습니다.`);
+    setStatusMessage(`${catalogProfileLabel(profile)} 카탈로그를 선택했습니다.`);
   }
 
   function restoreFromCache(entry: A2uiCacheEntry) {
@@ -363,7 +367,7 @@ export function App() {
                           {entry.mode === 'mock'
                             ? 'MOCK'
                             : entry.llmProvider === 'api' ? 'GEMINI' : 'CODEX'}
-                          {' · '}{entry.catalogProfile.toUpperCase()}
+                          {' · '}{catalogProfileLabel(entry.catalogProfile).toUpperCase()}
                           {' · '}재사용 {entry.hitCount}회
                         </span>
                       </button>
@@ -398,7 +402,7 @@ export function App() {
                 aria-pressed={catalogProfile === 'cadenza'}
                 onClick={() => selectCatalogProfile('cadenza')}
               >
-                Cadenza
+                Custom
               </button>
               <button
                 type="button"
