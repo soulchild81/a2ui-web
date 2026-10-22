@@ -1,0 +1,144 @@
+.cadenza-a2ui {
+  --tk-primary: #f76205;
+  --tk-button-primary: #f76205;
+  --tk-button-primary-hover: #db4823;
+  --tk-button-secondary: #fff;
+  --tk-layer-01: #fff;
+  --tk-layer-02: #f6f7f9;
+  --tk-text-default: #38393b;
+  --tk-text-subtle: #6a6b6d;
+  --tk-text-on-color: #fff;
+  --tk-border-subtle-01: #e2e3e5;
+  --tk-border-default-01: #c9cacc;
+  --tk-rounded-sm: 4px;
+  --tk-rounded-md: 8px;
+  --tk-spacing-8: 8px;
+  --tk-spacing-12: 12px;
+  --tk-spacing-16: 16px;
+  color: var(--tk-text-default);
+}
+
+.cadenza-a2ui .sds-base-flex {
+  display: flex;
+  width: 100%;
+  gap: var(--tk-spacing-12);
+}
+
+.cadenza-a2ui .sds-base-flex--horizontal {
+  flex-flow: row wrap;
+}
+
+.cadenza-a2ui .sds-base-flex--vertical {
+  flex-direction: column;
+}
+
+.cadenza-a2ui .sds-card {
+  overflow: hidden;
+  border-radius: var(--tk-rounded-md);
+  background: var(--tk-layer-01);
+}
+
+.cadenza-a2ui .sds-card--bordered {
+  border: 1px solid var(--tk-border-subtle-01);
+}
+
+.cadenza-a2ui .sds-card--hug {
+  height: fit-content;
+}
+
+.cadenza-a2ui .sds-card-body {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--tk-spacing-12);
+  padding: var(--tk-spacing-16);
+}
+
+.cadenza-a2ui .sds-basic-title,
+.cadenza-a2ui .sds-basic-title-group,
+.cadenza-a2ui .sds-basic-title-row {
+  min-width: 0;
+}
+
+.cadenza-a2ui .sds-basic-title-row {
+  display: flex;
+  align-items: center;
+}
+
+.cadenza-a2ui .sds-basic-title-heading {
+  margin: 0;
+  color: var(--tk-text-default);
+  line-height: 1.35;
+}
+
+.cadenza-a2ui .sds-basic-title--panel .sds-basic-title-heading {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.cadenza-a2ui .sds-basic-title--section .sds-basic-title-heading {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cadenza-a2ui .sds-ellipsis-text {
+  overflow: hidden;
+  color: var(--tk-text-default);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.cadenza-a2ui .sds-ellipsis-text--caption {
+  color: var(--tk-text-subtle);
+  font-size: 12px;
+}
+
+.cadenza-a2ui .sds-btn {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--tk-rounded-sm);
+  padding: var(--tk-spacing-8) var(--tk-spacing-16);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.cadenza-a2ui .sds-btn--primary {
+  color: var(--tk-text-on-color);
+  background: var(--tk-button-primary);
+}
+
+.cadenza-a2ui .sds-btn--primary:hover:not(:disabled) {
+  background: var(--tk-button-primary-hover);
+}
+
+.cadenza-a2ui .sds-btn--secondary {
+  border-color: var(--tk-border-default-01);
+  color: var(--tk-text-default);
+  background: var(--tk-button-secondary);
+}
+
+.cadenza-a2ui .sds-btn--ghost {
+  color: var(--tk-primary);
+  background: transparent;
+}
+
+.cadenza-a2ui .sds-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cadenza-a2ui .sds-btn-label {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+}
+
+.cadenza-a2ui .sds-btn-label .sds-ellipsis-text {
+  color: inherit;
+}
